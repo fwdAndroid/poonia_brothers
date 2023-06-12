@@ -67,7 +67,7 @@ class MyApp extends StatelessWidget {
         '/business': (context) => UserManager(),
         // '/settings': (context) => SettingsPage(),
       },
-      home: LoginPage(),
+      home: SideDrawer(),
     );
   }
 }

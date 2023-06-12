@@ -81,10 +81,21 @@ class DatabaseMethods {
               uuid: postId,
               zone: zone,
               territory: territory);
-          await FirebaseFirestore.instance
+          final QuerySnapshot querySnapshot = await FirebaseFirestore.instance
               .collection('categories')
-              .doc(postId)
-              .set(userModel.toJson());
+              .where('zone', isEqualTo: zone)
+              .get();
+
+          if (querySnapshot.docs.isNotEmpty) {
+            print('The value is already added in the database.');
+          } else {
+            await FirebaseFirestore.instance
+                .collection('categories')
+                .doc(postId)
+                .set(userModel.toJson());
+
+            print('Value added successfully.');
+          }
 
           res = 'success';
         } catch (e) {
